@@ -1,0 +1,75 @@
+###				EISI 24 CODE REVIEW					###
+###											###
+###				Codeur : Adrien Niceto					###
+###				Reviewer : Colas Chassagnon				###
+###											###
+###_____________________________________________________________________________________###
+
+
+
+Il y a déjà une fonction max & min, donc il est inutile de les créer, bien que cela permette de montrer une maîtrise du calcul effectué.
+
+
+
+###_____________________________________________________________________________________###
+
+
+
+On aurait sûrement pu remplacer cette partie :
+
+	for champ in contenu_csv:
+                if champ[2] == CHAMBRE1:
+                    temperature_corrigee = champ[3].replace(',', '.')
+                    champ[3] = float(temperature_corrigee)
+                    list_chambre1.append(champ[3])
+                elif champ[2] == CHAMBRE2:
+                    temperature_corrigee = champ[3].replace(',', '.')
+                    champ[3] = float(temperature_corrigee)
+                    list_chambre2.append(champ[3])
+                elif champ[2] == CHAMBRE3:
+                    temperature_corrigee = champ[3].replace(',', '.')
+                    champ[3] = float(temperature_corrigee)
+                    list_chambre3.append(champ[3])
+
+Par un truc du genre :
+	
+		# Dictionnaire associant chaque numéro de chambre froide à sa liste
+		chambres = {
+			1: list_chambre1,
+    			2: list_chambre2,
+			3: list_chambre3,
+			}
+
+		for champ in contenu_csv:
+    			num_chambrefroide = int(champ[2][-1])  # Extrait le numéro de la chambre froide
+    			if num_chambrefroide in chambres:
+        		temperature_corrigee = champ[3].replace(',', '.')
+        		champ[3] = float(temperature_corrigee)
+        		chambres[num_chambrefroide].append(champ[3])
+
+
+où on concaténerait CHAMBRE et list_chambre avec le numéro d'input de l'utilisateur pour éviter la redondance.
+
+
+
+###_____________________________________________________________________________________###
+
+
+
+Le try/catch peut être modifié pour avoir une plus grande utilité, là il n'expliquerait pas pourquoi ça n'a pas fonctionné par exemple. 
+
+
+
+###_____________________________________________________________________________________###
+
+
+
+La spécification de la question n'est pas respectée, on ne devrait pas avoir besoin d'appuyer sur 4 , le tableau devrait apparaître instantanément.
+
+
+
+###_____________________________________________________________________________________###
+
+
+Sinon le code est bon, pas ou peu de choses inutiles et de toute façon je ferais pas mieux donc bon.
+
